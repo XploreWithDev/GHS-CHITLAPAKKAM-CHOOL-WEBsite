@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>கல்வி - அரசு உயர்நிலைப் பள்ளி, சித்லப்பாக்கம்</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #facc15;
+            --bg: #f3eee4;
+        }
+        
+        body {
+            font-family: 'Noto Sans Tamil', sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%231e3a8a' d='M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z'/></svg>"), auto;
+            overflow-x: hidden;
+            letter-spacing: 0.5px;
+            word-spacing: 1px;
+        }
+        
+        .academics-hero {
+            background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%23f3eee4"/><path d="M0 400 Q250 380 500 400 T1000 400" stroke="%23e2d9c3" stroke-width="2" fill="none"/><path d="M0 200 Q250 220 500 200 T1000 200" stroke="%23e2d9c3" stroke-width="2" fill="none"/><path d="M0 600 Q250 580 500 600 T1000 600" stroke="%23e2d9c3" stroke-width="2" fill="none"/></svg>');
+            background-size: cover;
+        }
+        
+        .notebook-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="10" width="70" height="80" rx="3" fill="none" stroke="%231e3a8a" stroke-width="2"/><path d="M25,15 L25,85" stroke="%231e3a8a" stroke-width="2"/><path d="M30,20 L80,20 M30,30 L80,30 M30,40 L80,40 M30,50 L80,50 M30,60 L80,60 M30,70 L80,70 M30,80 L80,80" stroke="%231e3a8a" stroke-width="1"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-delay-1 {
+            animation-delay: 1s;
+        }
+        
+        .floating-delay-2 {
+            animation-delay: 2s;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-left {
+            opacity: 0;
+            transform: translateX(30px);
+            animation: slideLeft 1s ease-out forwards;
+        }
+        
+        @keyframes slideLeft {
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1.0s; }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .subject-card {
+            transition: all 0.3s ease;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        .subject-card:hover {
+            transform: perspective(1000px) rotateY(5deg);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .support-card {
+            transition: all 0.3s ease;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background-color: var(--primary);
+            opacity: 0.3;
+        }
+        
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a3377;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .teaching-approach {
+                flex-direction: column;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
+            
+            .timeline-item:not(:last-child)::after {
+                left: 19px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full bg-white shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-indigo-700 flex items-center justify-center text-white font-bold text-xl mr-3">
+                    GHS
+                </div>
+                <span class="text-indigo-900 font-semibold text-lg hidden md:block">அரசு உயர்நிலைப் பள்ளி<br>சித்லப்பாக்கம்</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="tamil.html" class="nav-link text-indigo-900 font-medium hover:text-yellow-500">முகப்பு</a>
+                <a href="aboutus.html" class="nav-link text-indigo-900 font-medium hover:text-yellow-500">எங்களைப் பற்றி</a>
+                <a href="kalvi.html" class="nav-link text-indigo-900 font-medium hover:text-yellow-500">கல்வி</a>
+                <a href="vasathigal.html" class="nav-link text-indigo-900 font-medium hover:text-yellow-500">வசதிகள்</a>
+                <a href="contacttamil.html" class="nav-link text-indigo-900 font-medium hover:text-yellow-500">தொடர்பு</a>
+                
+                <div class="h-6 w-px bg-gray-300 mx-2"></div>
+                
+                <a href="kalvi.html" class="ripple px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 font-medium hover:bg-indigo-200 transition flex items-center">
+                    <span>தமிழ்</span>
+                </a>
+                <a href="Studyeng.html" class="ripple px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 font-medium hover:bg-indigo-200 transition flex items-center">
+                    <span>English</span>
+                </a>
+            </div>
+            
+            <button class="md:hidden text-indigo-900 text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="academics-hero pt-32 pb-20 px-4">
+        <div class="container mx-auto">
+            <div class="text-center max-w-3xl mx-auto relative">
+                <!-- Floating icons -->
+                <div class="absolute -top-10 -left-10 w-12 h-12 text-yellow-500 floating">
+                    <i class="fas fa-book-open text-4xl"></i>
+                </div>
+                <div class="absolute -top-5 -right-10 w-10 h-10 text-indigo-700 floating floating-delay-1">
+                    <i class="fas fa-pencil-alt text-3xl"></i>
+                </div>
+                <div class="absolute -bottom-10 left-1/4 w-12 h-12 text-yellow-500 floating floating-delay-2">
+                    <i class="fas fa-graduation-cap text-4xl"></i>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-4 fade-in">
+                    <span class="text-yellow-500">அரசு உயர்நிலைப் பள்ளியில்</span> கல்வி
+                </h1>
+                <h2 class="text-2xl text-indigo-800 mb-6 fade-in delay-1">
+                    வலுவான அடித்தளங்கள் மற்றும் முன்னேற்றமான கற்றல் மூலம் இளம் மனங்களை அதிகாரப்பூர்வமாக்குதல்
+                </h2>
+                <div class="notebook-icon w-full h-40 mx-auto fade-in delay-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subject Overview Section -->
+    <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center text-indigo-900 mb-12 slide-up">
+                எங்கள் பாடங்கள்
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tamil -->
+                <div class="subject-card bg-indigo-50 rounded-xl p-8 shadow-md slide-up delay-1">
+                    <div class="text-indigo-900 mb-6 text-center">
+                        <i class="fas fa-book text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-3 text-center">தமிழ்</h3>
+                    <p class="text-gray-700 text-center">
+                        வெளிப்பாடு, இலக்கியம் மற்றும் கலாச்சாரத்தின் அடித்தளம். எங்கள் தமிழ்ப்பாடத்திட்டம் மொழியின் தேர்ச்சி மற்றும் பாரம்பரிய மற்றும் நவீன படைப்புகளின் பாராட்டை வலியுறுத்துகிறது.
+                    </p>
+                </div>
+                
+                <!-- English -->
+                <div class="subject-card bg-yellow-50 rounded-xl p-8 shadow-md slide-up delay-2">
+                    <div class="text-yellow-600 mb-6 text-center">
+                        <i class="fas fa-language text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-3 text-center">ஆங்கிலம்</h3>
+                    <p class="text-gray-700 text-center">
+                        உலகளாவிய தொடர்புக்கான மொழி மற்றும் இலக்கணம். நடைமுறை ஆங்கில திறன்களில் நாங்கள் கவனம் செலுத்துகிறோம்.
+                    </p>
+                </div>
+                
+                <!-- Mathematics -->
+                <div class="subject-card bg-indigo-50 rounded-xl p-8 shadow-md slide-up delay-3">
+                    <div class="text-indigo-900 mb-6 text-center">
+                        <i class="fas fa-square-root-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-3 text-center">கணிதம்</h3>
+                    <p class="text-gray-700 text-center">
+                        தர்க்கரீதியான பகுத்தறிதல் மற்றும் பிரச்சினைத் தீர்வு. நடைமுறை உதாரணங்கள் மூலம் வலுவான பகுப்பாய்வு திறன்களை உருவாக்குகிறோம்.
+                    </p>
+                </div>
+                
+                <!-- Science -->
+                <div class="subject-card bg-yellow-50 rounded-xl p-8 shadow-md slide-up delay-4">
+                    <div class="text-yellow-600 mb-6 text-center">
+                        <i class="fas fa-flask text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-3 text-center">அறிவியல்</h3>
+                    <p class="text-gray-700 text-center">
+                        குழந்தைகளின் ஆர்வத்தைத் தூண்டும் ஆய்வு மற்றும் நடைமுறை ஆய்வகங்கள். அறிவியலை கவர்ச்சிகரமாக்குகிறோம்.
+                    </p>
+                </div>
+                
+                <!-- Social Science -->
+                <div class="subject-card bg-indigo-50 rounded-xl p-8 shadow-md slide-up delay-5">
+                    <div class="text-indigo-900 mb-6 text-center">
+                        <i class="fas fa-globe-asia text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-3 text-center">சமூக அறிவியல்</h3>
+                    <p class="text-gray-700 text-center">
+                        வரலாறு, குடியுரிமை, புவியியல் மற்றும் சமூக விழிப்புணர்வு. மாணவர்கள் நமது பாரம்பரியம் பற்றி கற்றுக்கொள்கிறார்கள்.
+                    </p>
+                </div>
+                
+             
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Approach Section -->
+    <section class="py-16 px-4 bg-indigo-50">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center teaching-approach gap-12">
+                <div class="md:w-1/2 slide-left">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-6">
+                        எவ்வாறு நாங்கள் கற்பிக்கிறோம்
+                    </h2>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        எங்கள் ஆசிரியர்கள் தமிழ்நாடு மாநில வாரிய பாடத்திட்டத்தை கட்டமைப்பான பாடத் திட்டமிடலுடன் பின்பற்றுகிறார்கள். செயல்பாடு சார்ந்த கற்றல், கரும்பலகை தொடர்புகள் மற்றும் முறையான மதிப்பீடுகள் மூலம் முன்னேற்றத்தை உறுதி செய்கிறோம்.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        மதிப்புகள், ஒழுக்கம் மற்றும் மெதுவாக கற்றுக்கொள்ளும் மாணவர்கள் மற்றும் முன்னேறிய மாணவர்களுக்கான உள்ளடக்கிய கற்பித்தல் மீது அழுத்தம் கொடுக்கப்படுகிறது. எங்கள் 14 ஆசிரியர்கள் (4 ஆண்கள், 10 பெண்கள்) நவீன கற்பித்தல் முறைகளில் பயிற்சி பெற்றவர்கள்.
+                    </p>
+                </div>
+                
+                <div class="md:w-1/2 relative">
+                    <div class="bg-white p-6 rounded-xl shadow-lg slide-up">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 mr-4">
+                                <i class="fas fa-chalkboard-teacher text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-indigo-900">செயல்பாடு சார்ந்த கற்றல்</h3>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mr-4">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-indigo-900">உரையாடல் வகுப்பறை</h3>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 mr-4">
+                                <i class="fas fa-book-reader text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-indigo-900">மதிப்பு சார்ந்த கல்வி</h3>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mr-4">
+                                <i class="fas fa-heart text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-indigo-900">தனிப்பட்ட கவனம்</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating icon -->
+                    <div class="absolute -bottom-10 -right-10 w-16 h-16 text-yellow-500 floating">
+                        <i class="fas fa-star text-5xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment System Section -->
+    <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center text-indigo-900 mb-12 slide-up">
+                எங்கள் மதிப்பீட்டு முறை
+            </h2>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Quarterly Exams -->
+                    <div class="timeline-item relative pl-16 slide-up delay-1">
+                        <div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-indigo-700 flex items-center justify-center text-white">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">காலாண்டுத் தேர்வுகள்</h3>
+                        <p class="text-gray-700">
+                            அனைத்து பாடங்களிலும் மாணவர் முன்னேற்றத்தை மதிப்பிடுவதற்காக ஒவ்வொரு 3 மாதங்களுக்கும் நடத்தப்படும் விரிவான சோதனைகள்.
+                        </p>
+                    </div>
+                    
+                    <!-- Half-Yearly Exams -->
+                    <div class="timeline-item relative pl-16 slide-up delay-2">
+                        <div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">அரை ஆண்டுத் தேர்வுகள்</h3>
+                        <p class="text-gray-700">
+                            கல்வி ஆண்டின் முதல் பாதியின் பாடத்திட்டத்தை உள்ளடக்கிய நடுப்பருவத் தேர்வுகள்.
+                        </p>
+                    </div>
+                    
+                    <!-- Class Tests -->
+                    <div class="timeline-item relative pl-16 slide-up delay-3">
+                        <div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-indigo-700 flex items-center justify-center text-white">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">வகுப்புத் தேர்வுகள்</h3>
+                        <p class="text-gray-700">
+                            சமீபத்திய தலைப்புகள் மற்றும் கருத்துகளின் புரிதலை கண்காணிக்க அடிக்கடி சிறிய மதிப்பீடுகள்.
+                        </p>
+                    </div>
+                    
+                    <!-- Progress Sheets -->
+                    <div class="timeline-item relative pl-16 slide-up delay-4">
+                        <div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">மாணவர் முன்னேற்ற பதிவேடுகள்</h3>
+                        <p class="text-gray-700">
+                            ஒவ்வொரு மாணவருக்கும் விரிவான பதிவுகள் பராமரிக்கப்படுகின்றன, கல்வி வளர்ச்சியைக் கண்காணிக்கவும் மேம்படுத்த வேண்டிய பகுதிகளை அடையாளம் காணவும்.
+                        </p>
+                    </div>
+                    
+                    <!-- Encouragement -->
+                    <div class="timeline-item relative pl-16 slide-up delay-5">
+                        <div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-indigo-700 flex items-center justify-center text-white">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">அங்கீகாரம் & ஆதரவு</h3>
+                        <p class="text-gray-700">
+                            சிறந்த செயல்படும் மாணவர்கள் விருதுகளைப் பெறுகிறார்கள், போராடும் மாணவர்கள் தனிப்பட்ட கவனத்தைப் பெறுகிறார்கள்.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Support Section -->
+    <section class="py-16 px-4 bg-indigo-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center text-indigo-900 mb-12 slide-up">
+                கல்வி ஆதரவு
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Remedial Classes -->
+                <div class="support-card bg-white rounded-xl p-6 shadow-md slide-up delay-1">
+                    <div class="text-indigo-900 mb-4">
+                        <i class="fas fa-hands-helping text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">மீளாய்வு வகுப்புகள்</h3>
+                    <p class="text-gray-700">
+                        கடினமான கருத்துகளுக்கு கூடுதல் உதவி தேவைப்படும் மாணவர்களுக்கான சிறப்பு அமர்வுகள்.
+                    </p>
+                </div>
+                
+                <!-- Doubt Sessions -->
+                <div class="support-card bg-white rounded-xl p-6 shadow-md slide-up delay-2">
+                    <div class="text-yellow-600 mb-4">
+                        <i class="fas fa-question-circle text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">சந்தேக தீர்வு அமர்வுகள்</h3>
+                    <p class="text-gray-700">
+                        மாணவர்கள் கேள்விகளை கேட்டு தனிப்பட்ட விளக்கங்களைப் பெற ஒதுக்கப்பட்ட நேரம்.
+                    </p>
+                </div>
+                
+                <!-- Library -->
+                <div class="support-card bg-white rounded-xl p-6 shadow-md slide-up delay-3">
+                    <div class="text-indigo-900 mb-4">
+                        <i class="fas fa-book text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">நூலக அணுகல்</h3>
+                    <p class="text-gray-700">
+                        குறிப்பு மற்றும் கூடுதல் வாசிப்புக்காக 2300+ புத்தகங்கள் கிடைக்கின்றன.
+                    </p>
+                </div>
+                
+                <!-- Computer Lab -->
+                <div class="support-card bg-white rounded-xl p-6 shadow-md slide-up delay-4">
+                    <div class="text-yellow-600 mb-4">
+                        <i class="fas fa-laptop text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">கணினி ஆய்வகம்</h3>
+                    <p class="text-gray-700">
+                        நடைமுறை டிஜிட்டல் எழுத்தறிவு பயிற்சிக்கு 20 கணினி அமைப்புகள்.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Timings Section -->
+    <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-2xl">
+            <div class="bg-indigo-100 rounded-xl p-8 shadow-md slide-up">
+                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6">
+                    பள்ளி நேரங்கள்
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-indigo-900 mb-2 flex items-center">
+                            <i class="fas fa-sun mr-2 text-yellow-500"></i> காலை அமர்வு
+                        </h3>
+                        <p class="text-gray-700">காலை 9:00 - 12:30</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-indigo-900 mb-2 flex items-center">
+                            <i class="fas fa-cloud-sun mr-2 text-yellow-500"></i> மதிய அமர்வு
+                        </h3>
+                        <p class="text-gray-700">மதியம் 1:30 - 4:00</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg md:col-span-2">
+                        <h3 class="text-lg font-semibold text-indigo-900 mb-2 flex items-center">
+                            <i class="fas fa-utensils mr-2 text-yellow-500"></i> மதிய உணவு
+                        </h3>
+                        <p class="text-gray-700">எல்லா மாணவர்களுக்கும் 12:30 - 1:30 மதியம் ஊட்டச்சத்து நிறைந்த உணவு வழங்கப்படுகிறது</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-900 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">அரசு உயர்நிலைப் பள்ளி</h3>
+                    <p class="mb-2">சித்லப்பாக்கம், சென்னை</p>
+                    <p class="mb-2">தமிழ்நாடு - 600059</p>
+                    <p class="mb-2">நிறுவப்பட்டது: 1931</p>
+                    <p class="mb-2">UDISE குறியீடு: 33031403102</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">எங்களைத் தொடர்பு கொள்ள</h3>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> 044 2642 4076</p>
+                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> ghschitlapakkam@tnedu.org</p>
+                    <p class="mb-2"><i class="fas fa-clock mr-2"></i> திங்கள்-வெள்ளி: காலை 9:30 - மாலை 4:30</p>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-white hover:text-yellow-300 text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white hover:text-yellow-300 text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-yellow-300 text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-indigo-700 mt-8 pt-8 text-center text-indigo-300">
+                <p>© 2025 அரசு உயர்நிலைப் பள்ளி, சித்லப்பாக்கம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+                <p class="mt-2">வலைத்தளம் Xplore With Dev ஆல் உருவாக்கப்பட்டது</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ripple effect for buttons
+        document.querySelectorAll('.ripple').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
+                
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple-effect');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.slide-up, .slide-left').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Mobile menu toggle (placeholder functionality)
+        document.querySelector('.md\\:hidden').addEventListener('click', () => {
+            alert('Mobile menu would open here');
+        });
+    </script>
+</body>
+</html>

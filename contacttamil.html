@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தொடர்பு கொள்ள - அரசு உயர்நிலைப் பள்ளி, சிட்டலப்பாக்கம்</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #facc15;
+            --bg: #f3eee4;
+        }
+        
+        body {
+            font-family: 'Noto Sans Tamil', sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%231e3a8a' d='M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z'/></svg>"), auto;
+            overflow-x: hidden;
+        }
+        
+        .contact-hero {
+            background: linear-gradient(135deg, rgba(243, 238, 228, 0.9) 0%, rgba(243, 238, 228, 0.95) 100%), 
+                        url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg"><path d="M0 400 Q250 380 500 400 T1000 400" stroke="%23e2d9c3" stroke-width="2" fill="none"/><path d="M0 200 Q250 220 500 200 T1000 200" stroke="%23e2d9c3" stroke-width="2" fill="none"/><path d="M0 600 Q250 580 500 600 T1000 600" stroke="%23e2d9c3" stroke-width="2" fill="none"/></svg>');
+            background-size: cover;
+        }
+        
+        .map-container {
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card {
+            transition: all 0.3s ease;
+            transform: perspective(1000px) rotateX(0deg);
+        }
+        
+        .contact-card:hover {
+            transform: perspective(1000px) rotateX(5deg);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-left {
+            opacity: 0;
+            transform: translateX(30px);
+            animation: slideLeft 0.8s ease-out forwards;
+        }
+        
+        @keyframes slideLeft {
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-right {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideRight 0.8s ease-out forwards;
+        }
+        
+        @keyframes slideRight {
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a3377;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full bg-white shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-indigo-700 flex items-center justify-center text-white font-bold text-xl mr-3">
+                    அ.உ.ப
+                </div>
+                <span class="text-indigo-900 font-semibold text-lg hidden md:block">அரசு உயர்நிலைப் பள்ளி<br>சிட்டலப்பாக்கம்</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="tamil.html" class="text-indigo-900 font-medium hover:text-yellow-500">முகப்பு</a>
+                <a href="aboutus.html" class="text-indigo-900 font-medium hover:text-yellow-500">எங்களைப் பற்றி</a>
+                <a href="kalvi.html" class="text-indigo-900 font-medium hover:text-yellow-500">கல்வி</a>
+                <a href="vasathigal.html" class="text-indigo-900 font-medium hover:text-yellow-500">வசதிகள்</a>
+                <a href="contacttamil.html" class="text-indigo-900 font-medium text-yellow-500">தொடர்பு</a>
+                
+                <div class="h-6 w-px bg-gray-300 mx-2"></div>
+                
+                <a href="contact.html" class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 font-medium hover:bg-indigo-200 transition">
+                    English
+                </a>
+            </div>
+            
+            <button class="md:hidden text-indigo-900 text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero pt-32 pb-20 px-4">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-2 slide-up">
+                அரசு உயர்நிலைப் பள்ளி
+            </h1>
+            <h2 class="text-3xl md:text-4xl font-semibold text-indigo-800 mb-4 slide-up delay-1">
+                சிட்டலப்பாக்கம்
+            </h2>
+            <div class="w-20 h-1 bg-yellow-500 mx-auto mb-6 slide-up delay-1"></div>
+            <h3 class="text-2xl md:text-3xl font-medium text-indigo-700 mb-4 slide-up delay-2">
+                எங்களைத் தொடர்பு கொள்ள
+            </h3>
+            <p class="text-lg text-indigo-800 max-w-2xl mx-auto slide-up delay-3">
+                ஏதேனும் கேள்விகள் அல்லது உதவிக்காக எங்களைத் தொடர்பு கொள்ளவும்
+            </p>
+            
+            <!-- Floating icons -->
+            <div class="absolute top-1/4 left-1/4 w-12 h-12 text-yellow-500 floating hidden md:block">
+                <i class="fas fa-envelope text-4xl"></i>
+            </div>
+            <div class="absolute top-1/3 right-1/4 w-10 h-10 text-indigo-700 floating floating-delay-1 hidden md:block">
+                <i class="fas fa-phone-alt text-3xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Details Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto">
+            <div class="contact-grid grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Left Column - Contact Cards -->
+                <div class="space-y-6">
+                    <!-- Address Card -->
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md slide-up">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4 text-indigo-700">
+                                <i class="fas fa-map-marker-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">முகவரி</h3>
+                                <p class="text-gray-700">
+                                    W4PP+X8M, சிட்டலப்பாக்கம் 2வது முதன்மை சாலை,<br>
+                                    சிட்டலப்பாக்கம், சென்னை – 600059
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Card -->
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md slide-up delay-1">
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-4 text-yellow-600">
+                                <i class="fas fa-phone-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">தொலைபேசி</h3>
+                                <p class="text-gray-700">
+                                    044 2642 4076
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Card -->
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md slide-up delay-2">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4 text-indigo-700">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">மின்னஞ்சல்</h3>
+                                <p class="text-gray-700">
+                                    ghschitlapakkam@gmail.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- UDISE Card -->
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md slide-up delay-3">
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-4 text-yellow-600">
+                                <i class="fas fa-id-card text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">யூடிஐஎஸ்இ குறியீடு</h3>
+                                <p class="text-gray-700">
+                                    33031403102
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timings Card -->
+                    <div class="contact-card bg-white p-6 rounded-xl shadow-md slide-up delay-4">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 p-3 rounded-full mr-4 text-indigo-700">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">பள்ளி நேரம்</h3>
+                                <p class="text-gray-700">
+                                    காலை 9:00 மணி – மாலை 4:00 மணி<br>
+                                    (திங்கள் முதல் சனி வரை)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Map -->
+                <div class="flex items-center slide-right delay-2">
+                    <div class="map-container w-full h-full">
+                        <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.084648200635!2d80.13698817597368!3d12.875395287434012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525f6b75e56c27%3A0x34c319c063d61be3!2sGovernment%20High%20School%2C%20Chitlapakkam%2C%20Chennai!5e0!3m2!1sen!2sin!4v1718798944570!5m2!1sen!2sin" 
+    width="100%" 
+    height="100%" 
+    style="min-height: 500px; border:0;" 
+    allowfullscreen="" 
+    loading="lazy"
+    class="rounded-xl"
+></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-900 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">அரசு உயர்நிலைப் பள்ளி</h3>
+                    <p class="mb-2">சிட்டலப்பாக்கம், சென்னை</p>
+                    <p class="mb-2">தமிழ்நாடு - 600059</p>
+                    <p class="mb-2">நிறுவப்பட்டது: 1931</p>
+                    <p class="mb-2">யூடிஐஎஸ்இ குறியீடு: 33031403102</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">விரைவு இணைப்புகள்</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-300 transition">முகப்பு</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">எங்களைப் பற்றி</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">கல்வி</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">வசதிகள்</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">தொடர்பு</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">தொடர்பு தகவல்</h3>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> 044 2642 4076</p>
+                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> ghschitlapakkam@gmail.com</p>
+                    <p class="mb-2"><i class="fas fa-clock mr-2"></i> திங்கள்-சனி: காலை 9:00 - மாலை 4:00</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-indigo-700 mt-8 pt-8 text-center text-indigo-300">
+                <p>© 2023 அரசு உயர்நிலைப் பள்ளி, சிட்டலப்பாக்கம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+                <p class="mt-2">இணையதளம் கல்வி நோக்கங்களுக்காக வடிவமைக்கப்பட்டது</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.slide-up, .slide-left, .slide-right').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Mobile menu toggle (placeholder functionality)
+        document.querySelector('.md\\:hidden').addEventListener('click', () => {
+            alert('Mobile menu would open here');
+        });
+    </script>
+</body>
+</html>
